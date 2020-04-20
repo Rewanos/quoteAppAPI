@@ -5,8 +5,6 @@ ENV ENV_CONFIGURATION=$ENV_CONFIGURATION
 
 # CodeClimate reporter environment varibales:
 ARG CODE_CLIMATE_REPORTER_ID
-ARG CI_NAME
-ENV CI_NAME=$CI_NAME
 ENV CODE_CLIMATE_REPORTER_ID=$CODE_CLIMATE_REPORTER_ID
 ARG GIT_COMMIT_SHA
 ENV GIT_COMMIT_SHA=$GIT_COMMIT_SHA
@@ -36,8 +34,5 @@ COPY . /quote-app-api
 # Run code quality tools:
 RUN npm run lint
 RUN npm test
-
-# Upload test coverage report to CodeCov and CodeClimate.
-RUN export GIT_COMMITTED_AT="$(date +%s)" && /cc-test-reporter after-build -t lcov -r $(echo $CODE_CLIMATE_REPORTER_ID) -p ./coverage
 
 # Code quality check completed!
